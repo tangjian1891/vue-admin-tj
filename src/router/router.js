@@ -31,6 +31,16 @@ export default new Router({
           path: '/home',
           name: 'home',
           component: Home
+        },
+        {
+          path: '/upload',
+          name: 'upload',
+          component: () => import('@/views/tjplugin/Upload.vue')
+        },
+        {
+          path: '/cropper',
+          name: 'cropper',
+          component: () => import('@/views/tjplugin/Cropper.vue')
         }
       ]
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="slider">
     <el-menu background-color="#545c64" :collapse-transition="true" text-color="#fff" default-active="1-4-1" class="el-menu-vertical-demo" :collapse="isCollapse">
-      <el-menu-item index="1">
+      <el-menu-item index="1" @click="$router.push({ name: 'home' })">
         <i class="el-icon-location"></i>
         <span slot="title">首页</span>
       </el-menu-item>
@@ -10,8 +10,8 @@
           <i class="el-icon-menu"></i>
           <span slot="title">插件集合</span>
         </template>
-        <el-menu-item index="2-1">文件上传</el-menu-item>
-        <el-menu-item index="2-2">图片裁剪</el-menu-item>
+        <el-menu-item index="2-1" @click="$router.push({ name: 'upload' })">文件上传</el-menu-item>
+        <el-menu-item index="2-2" @click="$router.push({ name: 'cropper' })">图片裁剪</el-menu-item>
         <el-menu-item index="2-3">富文本编辑</el-menu-item>
         <el-menu-item index="2-4">视频播放</el-menu-item>
       </el-submenu>
@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'MainSlider',
+  name: 'Slider',
   data () {
     return {
     }
@@ -55,6 +55,7 @@ export default {
     handleClose (key, keyPath) {
       console.log(key, keyPath)
     }
+
   }
 }
 </script>

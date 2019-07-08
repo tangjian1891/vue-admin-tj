@@ -2,12 +2,12 @@
   <div class="container">
     <el-container style="height:100%;">
       <el-header>
-        <HomeTop @changeCollapse="changeCollapse"></HomeTop>
+        <MainTop @changeCollapse="changeCollapse"></MainTop>
       </el-header>
       <el-container>
         <!-- 侧边栏目 -->
         <el-aside width="200">
-          <HomeSlider :isCollapse="isCollapse"></HomeSlider>
+          <MainSlider :isCollapse="isCollapse"></MainSlider>
         </el-aside>
         <el-container>
           <el-main>
@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import HomeTop from './MainTop'
-import HomeSlider from './MainSlider'
+import MainTop from './MainTop'
+import MainSlider from './MainSlider'
 export default {
   name: 'Main',
   data () {
@@ -36,8 +36,8 @@ export default {
     }
   },
   components: {
-    HomeTop,
-    HomeSlider
+    MainTop,
+    MainSlider
   }
 }
 </script>
