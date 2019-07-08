@@ -1,0 +1,50 @@
+<template>
+  <div class="container">
+    <el-container style="height:100%;">
+      <el-header>
+        <HomeTop @changeCollapse="changeCollapse"></HomeTop>
+      </el-header>
+      <el-container>
+        <!-- 侧边栏目 -->
+        <el-aside width="200">
+          <HomeSlider :isCollapse="isCollapse"></HomeSlider>
+        </el-aside>
+        <el-container>
+          <el-main>
+            <router-view />
+          </el-main>
+        </el-container>
+      </el-container>
+    </el-container>
+  </div>
+</template>
+
+<script>
+import HomeTop from './MainTop'
+import HomeSlider from './MainSlider'
+export default {
+  name: 'Main',
+  data () {
+    return {
+      // 是否展开侧边导航
+      isCollapse: false
+    }
+  },
+  methods: {
+    changeCollapse () {
+      this.isCollapse = !this.isCollapse
+    }
+  },
+  components: {
+    HomeTop,
+    HomeSlider
+  }
+}
+</script>
+
+<style scope lang="scss">
+.container {
+  height: 100%;
+  border: 1px solid #ccc;
+}
+</style>
