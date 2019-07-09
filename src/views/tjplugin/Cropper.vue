@@ -1,15 +1,18 @@
 <template>
   <div>
-    <div class="crumbs">
+    <div>
+      <p>1.安装corpperjs</p>
+      <p>2.在单个组件中引入</p>
     </div>
-    <div class="crop-demo">
-      <img :src="cropImg" class="pre-img">
-      <div class="crop-demo-btn">选择图片
-        <input class="crop-input" type="file" name="image" accept="image/*" @change="setImage" />
-      </div>
+    <!-- 预览的是裁剪图片图片 -->
+    <img :src="cropImg" class="pre-img">
+    <!-- 选择上传图片 -->
+    <div class="crop-demo-btn">上传图片
+      <input class="crop-input" type="file" name="image" accept="image/*" @change="setImage" />
     </div>
-
-    <el-dialog title="裁剪图片" :visible.sync="dialogVisible" width="30%">
+    <div class="crop-demo-btn" style="margin-top:20px;" @click="cropImg=defaultSrc">清除头像</div>
+    <div class="crop-demo-btn" style="margin-top:20px;">上传图片到服务器</div><br>
+    <el-dialog title="裁剪图片,请裁剪至对应比例" :close-on-click-modal="false" :lock-scroll="true" :visible.sync="dialogVisible" width="30%">
       <vue-cropper ref='cropper' :src="imgSrc" :ready="cropImage" :zoom="cropImage" :cropmove="cropImage" style="width:100%;height:300px;"></vue-cropper>
       <span slot="footer" class="dialog-footer">
         <el-button @click="cancelCrop">取 消</el-button>
@@ -17,9 +20,7 @@
       </span>
     </el-dialog>
   </div>
-  </div>
 </template>
-
 <script>
 import VueCropper from 'vue-cropperjs'
 import 'cropperjs/dist/cropper.css'
@@ -27,9 +28,11 @@ export default {
   name: 'cropper',
   data: function () {
     return {
-      defaultSrc: '',
-      fileList: [],
+      // 默认的avatar头像
+      defaultSrc: require('../../assets/img/default_avatar.jpg'),
+      // 用于裁剪的头像源
       imgSrc: '',
+      // 裁剪下来，最终决定上传的头像 important
       cropImg: '',
       dialogVisible: false
     }
@@ -38,29 +41,35 @@ export default {
     VueCropper
   },
   methods: {
+    // 点击上传头像按钮
     setImage (e) {
+      // 只上传一张
       const file = e.target.files[0]
       if (!file.type.includes('image/')) {
         return
       }
+      // 创建读取流
       const reader = new FileReader()
       reader.onload = (event) => {
+        // 读取完成，拉起弹窗
         this.dialogVisible = true
+        // 直接回显到头像
         this.imgSrc = event.target.result
+        // 联动到裁剪
         this.$refs.cropper && this.$refs.cropper.replace(event.target.result)
       }
       reader.readAsDataURL(file)
     },
+    // 移动裁剪框，剪下图片
     cropImage () {
       this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL()
     },
+    // 取消裁剪
     cancelCrop () {
       this.dialogVisible = false
       this.cropImg = this.defaultSrc
     },
-    imageuploaded (res) {
-      console.log(res)
-    },
+    // 确认裁剪
     handleError () {
       this.$notify.error({
         title: '上传失败',
@@ -68,6 +77,7 @@ export default {
       })
     }
   },
+  // 将回显的指向赋值为默认
   created () {
     this.cropImg = this.defaultSrc
   }
@@ -83,8 +93,8 @@ export default {
   color: #1f2f3d;
 }
 .pre-img {
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 300px;
   background: #f8f8f8;
   border: 1px solid #eee;
   border-radius: 5px;
@@ -98,7 +108,7 @@ export default {
   width: 100px;
   height: 40px;
   line-height: 40px;
-  padding: 0 20px;
+  text-align: center;
   margin-left: 30px;
   background-color: #409eff;
   color: #fff;
