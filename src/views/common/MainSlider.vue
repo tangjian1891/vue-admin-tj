@@ -1,6 +1,6 @@
 <template>
   <div class="slider">
-    <el-menu background-color="#545c64" :collapse-transition="true" text-color="#fff" default-active="1-4-1" class="el-menu-vertical-demo" :collapse="isCollapse">
+    <el-menu background-color="#545c64" :default-active="onRoutes" :collapse-transition="true" text-color="#fff" class="el-menu-vertical-demo" :collapse="isCollapse">
       <el-menu-item index="1" @click="$router.push({ name: 'home' })">
         <i class="el-icon-location"></i>
         <span slot="title">首页</span>
@@ -10,8 +10,8 @@
           <i class="el-icon-menu"></i>
           <span slot="title">插件集合</span>
         </template>
-        <el-menu-item index="2-1" @click="$router.push({ name: 'upload' })">文件上传</el-menu-item>
-        <el-menu-item index="2-2" @click="$router.push({ name: 'cropper' })">图片裁剪</el-menu-item>
+        <el-menu-item index="upload" @click="$router.push({ name: 'upload' })">文件上传</el-menu-item>
+        <el-menu-item index="cropper" @click="$router.push({ name: 'cropper' })">图片裁剪</el-menu-item>
         <el-menu-item index="2-3">富文本编辑</el-menu-item>
         <el-menu-item index="2-4">视频播放</el-menu-item>
       </el-submenu>
@@ -56,6 +56,11 @@ export default {
       console.log(key, keyPath)
     }
 
+  },
+  computed: {
+    onRoutes () {
+      return this.$route.path.replace('/', '')
+    }
   }
 }
 </script>
